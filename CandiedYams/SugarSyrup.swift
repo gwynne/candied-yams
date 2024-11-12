@@ -91,7 +91,7 @@ public final class CandiedYams: NSObject {
     }
 }
 
-extension NSArray: NodeRepresentable {
+extension Foundation.NSArray: Yams.NodeRepresentable {
     public func represented() throws -> Node {
         let nodes = try map { v -> Node in
             guard let value = v as? NodeRepresentable else { throw YamlError.representer(problem: "failed to represent \(v)") }
@@ -101,7 +101,7 @@ extension NSArray: NodeRepresentable {
     }
 }
 
-extension NSDictionary: NodeRepresentable {
+extension Foundation.NSDictionary: Yams.NodeRepresentable {
     public func represented() throws -> Node {
         let pairs = try map { k, v -> (key: Node, value: Node) in
             guard let key = k as? NodeRepresentable else { throw YamlError.representer(problem: "failed to represent \(k)") }
@@ -112,7 +112,7 @@ extension NSDictionary: NodeRepresentable {
     }
 }
 
-extension NSNumber: ScalarRepresentable {
+extension Foundation.NSNumber: Yams.ScalarRepresentable {
     public func represented() -> Node.Scalar {
         if self === kCFBooleanTrue { return true.represented() }
         else if self === kCFBooleanFalse { return false.represented() }
@@ -123,22 +123,22 @@ extension NSNumber: ScalarRepresentable {
     }
 }
 
-extension NSData: ScalarRepresentable {
+extension Foundation.NSData: Yams.ScalarRepresentable {
     public func represented() -> Node.Scalar { (self as Data).represented() }
 }
 
-extension NSDate: ScalarRepresentable {
+extension Foundation.NSDate: Yams.ScalarRepresentable {
     public func represented() -> Node.Scalar { (self as Date).represented() }
 }
 
-extension NSString: ScalarRepresentable {
+extension Foundation.NSString: Yams.ScalarRepresentable {
     public func represented() -> Node.Scalar { (self as String).represented() }
 }
 
-extension NSURL: ScalarRepresentable {
+extension Foundation.NSURL: Yams.ScalarRepresentable {
     public func represented() -> Node.Scalar { (self as URL).represented() }
 }
 
-extension NSUUID: ScalarRepresentable {
+extension Foundation.NSUUID: Yams.ScalarRepresentable {
     public func represented() -> Node.Scalar { (self as UUID).represented() }
 }
